@@ -4,7 +4,7 @@
   "description": "Desktop booking app to demonstrate API Gateway pattern.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node ./users/users.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
