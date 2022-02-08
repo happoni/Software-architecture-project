@@ -6,7 +6,7 @@ require('../db/db');
 const Desktop = require('./Desktop');
 
 const app = express();
-const port = 3000;
+const port = 3000; // Different port than other services.
 app.use(express.json())
 
 app.post('/desktop', (req, res) => {
