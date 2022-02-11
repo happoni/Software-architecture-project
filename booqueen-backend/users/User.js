@@ -1,12 +1,16 @@
-// Using REST
-const mongoose = require('mongoose');
-const UserSchema = mongoose.Schema({
-	name: {
+const mongoose = require('mongoose')
+
+const userSchema = mongoose.Schema({
+	username: {
 		type: String,
-		require: true
+		minlength: 2,
 	},
+	email: {
+		type: String,
+		minlength: 6,
+	}
 })
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model("user", userSchema)
 
-module.exports = User;
+module.exports = User

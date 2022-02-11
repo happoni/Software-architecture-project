@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: "../../.env" });
 const express = require('express');
 
 require('../db/db');
@@ -6,7 +6,7 @@ require('../db/db');
 const User = require('./User');
 
 const app = express();
-const port = 5000; // Different port than other services.
+const port = 5000;
 app.use(express.json())
 
 app.post('/user', (req, res) => {
