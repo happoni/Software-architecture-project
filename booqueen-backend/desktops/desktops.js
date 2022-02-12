@@ -1,3 +1,50 @@
+const { Apolloserver, UserInputError, AuthenticationError, gql} = require('apollo-server')
+const { v1: uuid } = require('uuid')
+// const jwt = require('jsonwebtoken')
+
+//const mongoose = require('mongoose')
+const Desktop = require('./Desktop')
+require('../db/db');
+
+// const JWT_SECRET = 'NEED_HERE_A_SECRET_KEY'
+
+
+const typeDefs = gql`
+	type Desktop {
+		name: String!
+		location: String!
+		id: ID!
+	}
+	
+	type Query {
+		desktopCount: Int!
+		allDesktops: [Desktop!]!
+		findDesktop(name: String!): Desktop
+	}
+	
+	type Mutation {
+		addDesktop(
+			name: String!
+			location: String!
+		): Desktop
+	}
+`
+
+const resolvers = {
+	Query: {
+		desktopCount: () => Desktop.collection.countDocuments(),
+		allDesktops: (root, args) => {
+			if (!args.location) {
+				return Desktop.find({})
+			}
+
+			return Desktop.find({ })
+		}
+	}
+}
+
+
+/*
 require("dotenv").config();
 const express = require('express');
 
@@ -57,3 +104,5 @@ Desktop.findByIdAndRemove(req.params.id).then((desktop) => {
 app.listen(port, () => {
 	console.log(`Up and Running on port ${port}- This is Desktop service`);
 })
+
+*/

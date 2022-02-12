@@ -1,14 +1,13 @@
 require("dotenv").config({ path: "../../.env" });
 const express = require('express');
-
+// const cors = require('cors')
+const app = express();
 require('../db/db');
-
 const User = require('./User');
 
-const app = express();
-const port = 5000;
 app.use(express.json())
 
+// Create a new user
 app.post('/user', (req, res) => {
 	const newUser = new User({...req.body});
 	newUser.save().then(() => {
@@ -18,6 +17,7 @@ app.post('/user', (req, res) => {
 	})
 })
 
+// Return all users
 app.get('/users', (req, res) => {
 	User.find().then((users) => {
 		 if (users) {
@@ -30,6 +30,7 @@ app.get('/users', (req, res) => {
  });
 })
 
+// Return specific user by id
 app.get('/user/:id', (req, res) => {
 	User.findById(req.params.id).then((user) => 	{
 	 if (user) {
@@ -42,6 +43,7 @@ app.get('/user/:id', (req, res) => {
  });
 })
 
+// Remove specific user by id
 app.delete('/user/:id', (req, res) => {
 User.findByIdAndRemove(req.params.id).then((user) => {
 	if (user) {
@@ -54,6 +56,8 @@ User.findByIdAndRemove(req.params.id).then((user) => {
 });
 });
 
-app.listen(port, () => {
-	console.log(`Up and Running on port ${port}- This is User service`);
+// Run the service
+const PORT = process.env.USER_PORT || 5000
+app.listen(PORT, () => {
+	console.log(`Server up and running on port ${PORT}- This is the user service`);
 })

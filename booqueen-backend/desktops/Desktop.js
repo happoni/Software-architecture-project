@@ -1,16 +1,19 @@
-// Using REST
 const mongoose = require('mongoose');
-const DekstopSchema = mongoose.Schema({
+
+const desktopSchema = new mongoose.Schema({
 	name: {
 		type: String,
-		require: true
+		require: true,
+		unique: true,
+		minlength: 2,
 	},
 	location: {
 		type: String,
-		require: true
+		require: true,
+		minlength: 2,
 	},
 })
 
-const Desktop = mongoose.model("Desktop", DesktopSchema);
+const Desktop = mongoose.model("desktop", desktopSchema);
 
 module.exports = Desktop;
