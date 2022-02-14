@@ -40,7 +40,7 @@ const resolvers = {
 	Mutation: {
 		addDesktop: async (root, args) => {
 			// Create a new desktop.
-			const desktop = new Desktop({ ...args })
+			const desktop = new desktop({ ...args })
 
 			try {
 				await desktop.save()
@@ -60,6 +60,6 @@ const server = new ApolloServer({
 	resolvers,
 })
 
-server.listen().then(({ url }) => {
+server.listen({ port: 4001 }).then(({ url }) => {
 	console.log(`Server ready at ${url}`)
 })

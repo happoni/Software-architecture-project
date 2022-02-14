@@ -1,3 +1,5 @@
+// Using REST at the moment. We shall see whether we keep it like this or switch to GraphQL.
+
 require("dotenv").config({ path: "../../.env" });
 const express = require('express');
 // const cors = require('cors')
