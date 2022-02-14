@@ -1,29 +1,7 @@
-// const { Apolloserver, UserInputError, AuthenticationError, gql} = require('apollo-server')
-const { ApolloServer, gql} = require('apollo-server')
-// const { v1: uuid } = require('uuid')
-// const jwt = require('jsonwebtoken')
-
-//const mongoose = require('mongoose')
-//const Desktop = require('./Desktop')
-//require('../db/db');
-
-// const JWT_SECRET = 'NEED_HERE_A_SECRET_KEY'
-
-
-let desktops = [
-	{
-		name: "D-01",
-		location: "D-wing",
-	},
-	{
-		name: "D-02",
-		location: "D-wing",
-	},
-	{
-		name: "D-03",
-		location: "D-wing",
-	},
-]
+require("dotenv").config({ path: "../../.env" });
+const { ApolloServer, gql, UserInputError} = require('apollo-server')
+const Desktop = require('./Desktop')
+require('../db/db');
 
 const typeDefs = gql`
 	type Desktop {
@@ -37,14 +15,43 @@ const typeDefs = gql`
 		allDesktops: [Desktop!]!
 		findDesktop(name: String!): Desktop
 	}
+
+	type Mutation {
+		addDesktop(
+			name: String!
+			location: String!	
+		): Desktop
+	}
 `
 
 const resolvers = {
 	Query: {
-		desktopCount: () => desktops.length,
-		allDesktops: () => desktops,
+		desktopCount: () => Desktop.collection.countDocuments(),
+		allDesktops: (root, args) => {
+			// filters
+			return Desktop.find({})
+		},
 		findDesktop: (root, args) =>
-			desktops.find(d => d.name === args.name)
+			Desktop.findOne({ name: args.name })
+	},
+
+	// Desktop: {...},
+
+	Mutation: {
+		addDesktop: async (root, args) => {
+			// Create a new desktop.
+			const desktop = new Desktop({ ...args })
+
+			try {
+				await desktop.save()
+			} catch (error) {
+				throw new UserInputError(error.message, {
+					invalidArgs: args,
+				})
+			}
+
+			return desktop
+		}
 	}
 }
 

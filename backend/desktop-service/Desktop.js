@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator')
 
 const desktopSchema = new mongoose.Schema({
 	name: {
@@ -14,6 +15,5 @@ const desktopSchema = new mongoose.Schema({
 	},
 })
 
-const Desktop = mongoose.model("desktop", desktopSchema);
-
-module.exports = Desktop;
+desktopSchema.plugin(uniqueValidator)
+module.exports = mongoose.model("desktop", desktopSchema)
