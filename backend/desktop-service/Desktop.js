@@ -16,4 +16,4 @@ const desktopSchema = new mongoose.Schema({
 })
 
 desktopSchema.plugin(uniqueValidator)
-module.exports = mongoose.model("desktop", desktopSchema)
+module.exports = mongoose.model("Desktop", desktopSchema)

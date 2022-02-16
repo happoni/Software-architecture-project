@@ -26,12 +26,12 @@ const typeDefs = gql`
 
 const resolvers = {
 	Query: {
-		desktopCount: () => Desktop.collection.countDocuments(),
-		allDesktops: (root, args) => {
+		desktopCount: async () => Desktop.collection.countDocuments(),
+		allDesktops: async (root, args) => {
 			// filters
 			return Desktop.find({})
 		},
-		findDesktop: (root, args) =>
+		findDesktop: async (root, args) =>
 			Desktop.findOne({ name: args.name })
 	},
 
@@ -40,7 +40,7 @@ const resolvers = {
 	Mutation: {
 		addDesktop: async (root, args) => {
 			// Create a new desktop.
-			const desktop = new desktop({ ...args })
+			const desktop = new Desktop({ ...args })
 
 			try {
 				await desktop.save()
@@ -60,6 +60,6 @@ const server = new ApolloServer({
 	resolvers,
 })
 
-server.listen({ port: 4001 }).then(({ url }) => {
+server.listen({ port: 5002 }).then(({ url }) => {
 	console.log(`Server ready at ${url}`)
 })

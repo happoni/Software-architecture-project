@@ -59,7 +59,7 @@ User.findByIdAndRemove(req.params.id).then((user) => {
 });
 
 // Run the service
-const PORT = process.env.USER_PORT || 5000
+const PORT = process.env.USER_PORT || 5001
 app.listen(PORT, () => {
 	console.log(`Server up and running on port ${PORT}- This is the user service`);
 })
