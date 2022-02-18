@@ -1,6 +1,9 @@
 // Desktop service, using REST.
 
-require("dotenv").config({ path: "../../.env" });
+// dotenv has some issues with .env path...
+// Switch commenting in next two lines if you don't use npm run server -script
+//require("dotenv").config({ path: "../../.env" });
+require("dotenv").config({ path: "../.env" });
 const express = require('express')
 const app = express()
 require('../db/db')

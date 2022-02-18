@@ -1,7 +1,10 @@
 // This is one of our microservices, User service, responsible for creating users to database.
 // We are using REST here.
 
-require("dotenv").config({ path: "../../.env" });
+// dotenv has some issues with .env path...
+// Switch commenting in next two lines if you don't use npm run server -script
+//require("dotenv").config({ path: "../../.env" })
+require("dotenv").config({ path: "../.env" })
 const express = require('express')
 const app = express()
 require('../db/db')
@@ -63,5 +66,5 @@ User.findByIdAndRemove(req.params.id).then((user) => {
 // Run the service
 const PORT = process.env.USER_PORT || 5001
 app.listen(PORT, () => {
-	console.log(`Server up and running on port ${PORT}- This is the user service`);
+	console.log(`Server up and running on port ${PORT}. This is the user service`);
 })

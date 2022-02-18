@@ -3,7 +3,9 @@ const { ApolloGateway } = require("@apollo/gateway")
 const { readFileSync } = require('fs')
 
 // All subgraphs are combined into supergraph
-const supergraphSdl = readFileSync('graphs/supergraph.graphql').toString()
+// When using npm run server -script, gotta give path from backend-folder.
+//const supergraphSdl = readFileSync('graphs/supergraph.graphql').toString()
+const supergraphSdl = readFileSync('gateway/graphs/supergraph.graphql').toString()
 const port = 4000
 
 const gateway = new ApolloGateway({

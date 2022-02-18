@@ -7,8 +7,10 @@
     "@apollo/federation": "^0.35.1",
     "@apollo/gateway": "^0.48.1",
     "@apollo/subgraph": "^0.3.1",
+    "apollo-datasource-rest": "^3.5.1",
     "apollo-server": "^3.6.3",
     "apollo-server-core": "^3.6.3",
+    "concurrently": "^7.0.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "graphql": "^16.3.0",
@@ -16,14 +18,20 @@
     "mongoose": "^6.2.1",
     "mongoose-unique-validator": "^3.0.0",
     "morgan": "^1.10.0",
-    "node-fetch": "^2.6.7",
-		"apollo-datasource-rest": "^3.5.1"
+    "node-fetch": "^2.6.7"
   },
   "devDependencies": {
     "@apollo/rover": "^0.4.3",
     "nodemon": "^2.0.15"
   },
   "scripts": {
-		
-	}
+    "server": "concurrently -k npm:server:*",
+    "server:rest-users": "nodemon user-service/users.js",
+		"server:rest-desktops": "nodemon desktop-service/desktops.js",
+		"server:rest-bookings": "nodemon booking-service/bookings.js",
+		"server:gateway-users": "nodemon gateway/users.js",
+		"server:gateway-desktops": "nodemon gateway/desktops.js",
+		"server:gateway-bookings": "nodemon gateway/bookings.js",
+		"server:gateway": "nodemon gateway/gateway.js"
+  }
 }
