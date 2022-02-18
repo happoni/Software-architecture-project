@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "A demo app for API Gateway implentation.",
   "dependencies": {
-    "@apollo/client": "^3.5.8",
     "@apollo/federation": "^0.35.1",
     "@apollo/gateway": "^0.48.1",
     "@apollo/subgraph": "^0.3.1",

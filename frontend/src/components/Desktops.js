@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { gql, useLazyQuery } from '@apollo/client'
 
-const FIND_DESKTOP = gql`
-  query findDesktopByName($nameToSearch: String!) {
-    findDesktop(name: $nameToSearch) {
-      name
-      location
-      id
-    }
-  }
-`
+import { ALL_DESKTOPS } from '../queries'
 
 const Desktops = ({ desktops }) => {
-  const [getDesktop, result] = useLazyQuery(FIND_DESKTOP) 
+  const [getDesktop, result] = useLazyQuery(ALL_DESKTOPS) 
   const [desktop, setDesktop] = useState(null)
 
   const showDesktop = (name) => {
