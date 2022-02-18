@@ -3,6 +3,7 @@ schema
   @core(feature: "https://specs.apollo.dev/join/v0.1", for: EXECUTION)
 {
   query: Query
+  mutation: Mutation
 }
 
 directive @core(as: String, feature: String!, for: core__Purpose) repeatable on SCHEMA
@@ -14,6 +15,10 @@ directive @join__graph(name: String!, url: String!) on ENUM_VALUE
 directive @join__owner(graph: join__Graph!) on INTERFACE | OBJECT
 
 directive @join__type(graph: join__Graph!, key: join__FieldSet) repeatable on INTERFACE | OBJECT
+
+type Mutation {
+  addUser(email: String!, username: String!): User @join__field(graph: USERS)
+}
 
 type Query {
   user(id: ID!): User @join__field(graph: USERS)

@@ -1,0 +1,17 @@
+	extend type Query {
+		desktop(id: ID!): Desktop
+		desktops: [Desktop]
+	}
+	
+	type Desktop @key(fields: "id") {
+		id: ID!
+		name: String
+		location: String
+	}
+
+	type Mutation {
+		addDesktop(
+			name: String!
+			location: String!
+		): Desktop
+	}

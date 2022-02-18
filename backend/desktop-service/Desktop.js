@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator')
 
-const desktopSchema = new mongoose.Schema({
+const desktopSchema = mongoose.Schema({
 	name: {
 		type: String,
 		require: true,
@@ -15,5 +15,13 @@ const desktopSchema = new mongoose.Schema({
 	},
 })
 
+desktopSchema.set('toJSON', {
+	transform: (document, returnedObject) => {
+		returnedObject.id = returnedObject._id.toString()
+		delete returnedObject._id
+		delete returnedObject.__v
+	}
+})
+
 desktopSchema.plugin(uniqueValidator)
-module.exports = mongoose.model("Desktop", desktopSchema)
+module.exports = mongoose.model("desktop", desktopSchema)

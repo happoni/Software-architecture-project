@@ -16,7 +16,8 @@
     "mongoose": "^6.2.1",
     "mongoose-unique-validator": "^3.0.0",
     "morgan": "^1.10.0",
-    "node-fetch": "^2.6.7"
+    "node-fetch": "^2.6.7",
+		"apollo-datasource-rest": "^3.5.1"
   },
   "devDependencies": {
     "@apollo/rover": "^0.4.3",

@@ -1,3 +1,6 @@
+// This is a part of the gateway. This service is responsible for handling users via
+// microservice User service.
+
 const { ApolloServer, gql } = require("apollo-server")
 const { buildSubgraphSchema } = require("@apollo/subgraph")
 const fetch = require("node-fetch")
@@ -16,10 +19,19 @@ const typeDefs = gql`
 		user(id: ID!): User
 		users: [User]
 	}
+
+	type Mutation {
+		addUser(
+			username: String!
+			email: String!	
+		): User
+	}
 `
+// Gotta add feature to remove users.
+
 
 const resolvers = {
-	Desktop: {
+	User: {
 		__resolveReference(ref) {
 			return fetch(`${apiUrl}/users/${ref.id}`).then(res => res.json())
 		}
@@ -30,6 +42,20 @@ const resolvers = {
 		},
 		users() {
 			return fetch(`${apiUrl}/users`).then(res => res.json())
+		}
+	},
+	Mutation: {
+		addUser(_, { username, email }) {
+			const user = {
+				username: username,
+				email: email
+			}
+			
+			return fetch(`${apiUrl}/user`, {
+				method: 'POST',
+				body: JSON.stringify(user),
+				headers: { 'Content-Type': 'application/json' }
+			}).then(res => res.json())
 		}
 	}
 }

@@ -8,3 +8,10 @@
 		username: String
 		email: String
 	}
+
+	type Mutation {
+		addUser(
+			username: String!
+			email: String!	
+		): User
+	}

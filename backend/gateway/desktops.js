@@ -1,5 +1,6 @@
 const { ApolloServer, gql } = require("apollo-server")
 const { buildSubgraphSchema } = require("@apollo/subgraph")
+const fetch = require("node-fetch")
 
 const port = 4002
 const apiUrl = "http://localhost:5002"
@@ -15,10 +16,46 @@ const typeDefs = gql`
 		desktop(id: ID!): Desktop
 		desktops: [Desktop]
 	}
+
+	type Mutation {
+		addDesktop(
+			name: String!
+			location: String!
+		): Desktop
+	}
 `
 
 const resolvers = {
-// Hmm... How to implement these?
+
+	Desktop: {
+		__resolveReference(ref) {
+			return fetch(`${apiUrl}/desktops/${ref.id}`).then(res => res.json()) 
+		}
+	},
+
+	Query: {
+		desktop(_, { id }) {
+			return fetch(`${apiUrl}/desktops/${id}`).then(res => res.json())
+		},
+		desktops() {
+			return fetch(`${apiUrl}/desktops`).then(res => res.json())
+		},
+	},
+
+	Mutation: {
+		addDesktop(_, { name, location }) {
+			const desktop = {
+				name: name,
+				location: location
+			}
+
+			return fetch(`${apiUrl}/desktop`, {
+				method: 'POST',
+				body: JSON.stringify(desktop),
+				headers: { 'Content-Type': 'application/json'}
+			}).then(res => res.json())
+		}
+	}
 }
 
 const server = new ApolloServer({

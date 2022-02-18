@@ -1,7 +1,7 @@
-POST http://localhost:5000/user HTTP/1.1
+POST http://localhost:5001/user HTTP/1.1
 content-type: application/json
 
 {
-    "username": "tohmo1",
-		"email": "tohmo@maili.com"
+    "username": "Jansku4",
+		"email": "jaana-kaisanen@maili.com"
 }

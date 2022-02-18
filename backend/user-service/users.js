@@ -1,21 +1,23 @@
-// Using REST at the moment. We shall see whether we keep it like this or switch to GraphQL.
+// This is one of our microservices, User service, responsible for creating users to database.
+// We are using REST here.
 
 require("dotenv").config({ path: "../../.env" });
-const express = require('express');
-// const cors = require('cors')
-const app = express();
-require('../db/db');
-const User = require('./User');
+const express = require('express')
+const app = express()
+require('../db/db')
+const User = require('./User')
 
 app.use(express.json())
 
-// Create a new user
+// Create a new user, send created user back to client (to gateway)
 app.post('/user', (req, res) => {
 	const newUser = new User({...req.body});
-	newUser.save().then(() => {
-		res.send('New user created!');
-	}).catch((error) => {
-		res.status(500).send('Internal Server Error!');
+	newUser.save()
+	.then((newUser) => {
+		res.json(newUser)
+	})
+	.catch((error) => {
+		res.status(500).send('Internal Server Error!')
 	})
 })
 
@@ -45,7 +47,7 @@ app.get('/user/:id', (req, res) => {
  });
 })
 
-// Remove specific user by id
+// Remove specific user by id (currently not supported by gateway implementation)
 app.delete('/user/:id', (req, res) => {
 User.findByIdAndRemove(req.params.id).then((user) => {
 	if (user) {
