@@ -3,3 +3,11 @@ subgraphs:
     routing_url: http://localhost:4001
     schema:
       file: users.graphql
+  desktops:
+    routing_url: http://localhost:4002
+    schema:
+      file: desktops.graphql
+  bookings:
+    routing_url: http://localhost:4003
+    schema:
+      file: bookings.graphql

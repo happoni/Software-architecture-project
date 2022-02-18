@@ -1,0 +1,9 @@
+POST http://localhost:5003/booking HTTP/1.1
+content-type: application/json
+
+{
+    "startDate": "2020-10-05",
+		"endDate": "2020-10-07",
+		"userId": "620f8bf4b6378bca1e7dbc76",
+		"desktopId": "620fc3ede1801993ed2dd848",
+}

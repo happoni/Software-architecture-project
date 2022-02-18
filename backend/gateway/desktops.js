@@ -63,5 +63,5 @@ const server = new ApolloServer({
 })
 
 server.listen(port).then(({ url }) => {
-	console.log(`Users service ready at ${url}`)
+	console.log(`Desktop service ready at ${url}`)
 })
