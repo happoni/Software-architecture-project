@@ -15,6 +15,7 @@ const typeDefs = gql`
 	extend type Query {
 		desktop(id: ID!): Desktop
 		desktops: [Desktop]
+		desktopsByLocation(location: String!): [Desktop]
 	}
 
 	type Mutation {
@@ -40,6 +41,13 @@ const resolvers = {
 		desktops() {
 			return fetch(`${apiUrl}/desktops`).then(res => res.json())
 		},
+		desktopsByLocation(_, { location }) {
+			return fetch(`${apiUrl}/desktops`)
+			.then(res => res.json())
+			.then(json => json.filter(d => {
+				return d.location === location
+			}))
+		}
 	},
 
 	Mutation: {

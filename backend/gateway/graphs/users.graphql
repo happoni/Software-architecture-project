@@ -5,8 +5,8 @@
 
 	type User @key(fields: "id") {
 		id: ID!
-		username: String
-		email: String
+		username: String!
+		email: String!
 	}
 
 	type Mutation {

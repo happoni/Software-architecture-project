@@ -8,8 +8,7 @@ const apiUrl = "http://localhost:5003"
 const typeDefs = gql`
 	type Booking @key(fields: "id") {
 		id: ID!
-		startDate: String
-		endDate: String
+		date: String
 		userId: String
 		desktopId: String
 	}
@@ -17,14 +16,15 @@ const typeDefs = gql`
 	extend type Query {
 		booking(id: ID!): Booking
 		bookings: [Booking]
+		bookingsByUser(userId: String!): [Booking]
+		bookingsByDesktop(desktopId: String!): [Booking]
 	}
 
 	type Mutation {
 		addBooking(
-			startDate: String!
-			endDate: String!
-			userId: String
-			desktopId: String
+			date: String!
+			userId: String!
+			desktopId: String!
 		): Booking
 	}
 `
@@ -44,13 +44,26 @@ const resolvers = {
 		bookings() {
 			return fetch(`${apiUrl}/bookings`).then(res => res.json())
 		},
+		bookingsByUser(_, { userId }) {
+			return fetch(`${apiUrl}/bookings`)
+				.then(res => res.json())
+				.then(json => json.filter(b => {
+					return b.userId === userId
+				}))
+		},
+		bookingsByDesktop(_, { desktopId }) {
+			return fetch(`${apiUrl}/bookings`)
+			.then(res => res.json())
+			.then(json => json.filter(b => {
+				return b.desktopId === desktopId
+			}))
+		}
 	},
 
 	Mutation: {
-		addBooking(_, { startDate, endDate, userId, desktopId }) {
+		addBooking(_, { date, userId, desktopId }) {
 			const booking = {
-				startDate: startDate,
-				endDate: endDate,
+				date: date,
 				userId: userId,
 				desktopId: desktopId,
 			}

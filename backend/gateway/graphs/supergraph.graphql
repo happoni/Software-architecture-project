@@ -20,11 +20,10 @@ type Booking
   @join__owner(graph: BOOKINGS)
   @join__type(graph: BOOKINGS, key: "id")
 {
-  desktopId: String @join__field(graph: BOOKINGS)
-  endDate: String @join__field(graph: BOOKINGS)
+  date: String! @join__field(graph: BOOKINGS)
+  desktopId: String! @join__field(graph: BOOKINGS)
   id: ID! @join__field(graph: BOOKINGS)
-  startDate: String @join__field(graph: BOOKINGS)
-  userId: String @join__field(graph: BOOKINGS)
+  userId: String! @join__field(graph: BOOKINGS)
 }
 
 type Desktop
@@ -32,12 +31,12 @@ type Desktop
   @join__type(graph: DESKTOPS, key: "id")
 {
   id: ID! @join__field(graph: DESKTOPS)
-  location: String @join__field(graph: DESKTOPS)
-  name: String @join__field(graph: DESKTOPS)
+  location: String! @join__field(graph: DESKTOPS)
+  name: String! @join__field(graph: DESKTOPS)
 }
 
 type Mutation {
-  addBooking(desktopId: String, endDate: String!, startDate: String!, userId: String): Booking @join__field(graph: BOOKINGS)
+  addBooking(date: String!, desktopId: String!, userId: String!): Booking @join__field(graph: BOOKINGS)
   addDesktop(location: String!, name: String!): Desktop @join__field(graph: DESKTOPS)
   addUser(email: String!, username: String!): User @join__field(graph: USERS)
 }
@@ -45,8 +44,11 @@ type Mutation {
 type Query {
   booking(id: ID!): Booking @join__field(graph: BOOKINGS)
   bookings: [Booking] @join__field(graph: BOOKINGS)
+  bookingsByDesktop(desktopId: String!): [Booking] @join__field(graph: BOOKINGS)
+  bookingsByUser(userId: String!): [Booking] @join__field(graph: BOOKINGS)
   desktop(id: ID!): Desktop @join__field(graph: DESKTOPS)
   desktops: [Desktop] @join__field(graph: DESKTOPS)
+  desktopsByLocation(location: String!): [Desktop] @join__field(graph: DESKTOPS)
   user(id: ID!): User @join__field(graph: USERS)
   users: [User] @join__field(graph: USERS)
 }
@@ -55,9 +57,9 @@ type User
   @join__owner(graph: USERS)
   @join__type(graph: USERS, key: "id")
 {
-  email: String @join__field(graph: USERS)
+  email: String! @join__field(graph: USERS)
   id: ID! @join__field(graph: USERS)
-  username: String @join__field(graph: USERS)
+  username: String! @join__field(graph: USERS)
 }
 
 enum core__Purpose {

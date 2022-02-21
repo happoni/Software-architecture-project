@@ -1,21 +1,21 @@
 	extend type Query {
 		booking(id: ID!): Booking
 		bookings: [Booking]
+		bookingsByUser(userId: String!): [Booking]
+		bookingsByDesktop(desktopId: String!): [Booking]
 	}
 	
 	type Booking @key(fields: "id") {
 		id: ID!
-		startDate: String
-		endDate: String
-		userId: String
-		desktopId: String
+		date: String!
+		userId: String!
+		desktopId: String!
 	}
 
 	type Mutation {
 		addBooking(
-			startDate: String!
-			endDate: String!
-			userId: String
-			desktopId: String
+			date: String!
+			userId: String!
+			desktopId: String!
 		): Booking
 	}

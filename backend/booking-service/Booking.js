@@ -1,19 +1,19 @@
 const mongoose = require('mongoose')
 
 const bookingSchema = mongoose.Schema({
-	startDate: {
-		type: String,
-		required: true,
-	},
-	endDate: {
+	date: {
 		type: String,
 		required: true,
 	},
 	userId: {
-		type: String,
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'User',
+		required: true,
 	},
 	desktopId: {
-		type: String,
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Desktop',
+		required: true,
 	}
 })
 
@@ -25,6 +25,4 @@ bookingSchema.set('toJSON', {
 	}
 })
 
-const Booking = mongoose.model("booking", bookingSchema)
-
-module.exports = Booking
+module.exports = mongoose.model("Booking", bookingSchema)

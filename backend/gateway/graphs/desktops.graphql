@@ -1,12 +1,13 @@
 	extend type Query {
 		desktop(id: ID!): Desktop
 		desktops: [Desktop]
+		desktopsByLocation(location: String!): [Desktop]
 	}
 	
 	type Desktop @key(fields: "id") {
 		id: ID!
-		name: String
-		location: String
+		name: String!
+		location: String!
 	}
 
 	type Mutation {

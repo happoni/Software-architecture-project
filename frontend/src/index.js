@@ -10,7 +10,7 @@ const client = new ApolloClient({
 	cache: new InMemoryCache(),
 	link: new HttpLink({
 		//uri: process.env.FRONTEND_URI,
-		uri: 'http://localhost:3001/test'
+		uri: 'http://localhost:4000'
 	})
 })
 

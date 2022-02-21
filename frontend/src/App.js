@@ -6,7 +6,7 @@ import './App.css';
 
 const ALL_DESKTOPS = gql`
 	query {
-		allDesktops {
+		desktops {
 			name
 			location
 		}
@@ -21,10 +21,13 @@ const App = () => {
 	}
 
 	return (
-		<div>
-			<Desktops desktops = {result.data.allDesktops}/>
+		<div className="container">
+			{result.data.desktops.map(d => d.name).join(', ')}
 		</div>
 	)
 }
 
 export default App;
+
+
+//<Desktops desktops = {result.data.allDesktops}/>
