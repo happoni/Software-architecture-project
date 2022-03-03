@@ -30,13 +30,13 @@ const resolvers = {
 
 	Desktop: {
 		__resolveReference(ref) {
-			return fetch(`${apiUrl}/desktops/${ref.id}`).then(res => res.json()) 
+			return fetch(`${apiUrl}/desktop/${ref.id}`).then(res => res.json()) 
 		}
 	},
 
 	Query: {
 		desktop(_, { id }) {
-			return fetch(`${apiUrl}/desktops/${id}`).then(res => res.json())
+			return fetch(`${apiUrl}/desktop/${id}`).then(res => res.json())
 		},
 		desktops() {
 			return fetch(`${apiUrl}/desktops`).then(res => res.json())

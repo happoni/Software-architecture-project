@@ -33,12 +33,12 @@ const typeDefs = gql`
 const resolvers = {
 	User: {
 		__resolveReference(ref) {
-			return fetch(`${apiUrl}/users/${ref.id}`).then(res => res.json())
+			return fetch(`${apiUrl}/user/${ref.id}`).then(res => res.json())
 		}
 	},
 	Query: {
 		user(_, { id }) {
-			return fetch(`${apiUrl}/users/${id}`).then(res => res.json())
+			return fetch(`${apiUrl}/user/${id}`).then(res => res.json())
 		},
 		users() {
 			return fetch(`${apiUrl}/users`).then(res => res.json())

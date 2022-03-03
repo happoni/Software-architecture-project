@@ -1,2 +1,2 @@
-GET http://localhost:5001/users HTTP/1.1
+GET http://localhost:5001/user/620f8bf4b6378bca1e7dbc76 HTTP/1.1
 content-type: application/json
